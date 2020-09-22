@@ -1,6 +1,75 @@
-import React from 'react';
+import { authService } from 'fbase';
+import React, { useState } from 'react';
 
 
-const Auth = () => <span>Auth</span>
+const Auth = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [newAccount, setNewAccount] = useState(true);
+    const [error, setError] = useState("")
+     
+    const onSubmit = async(event) =>{
+        event.preventDefault();
+        try {
+            let data;
+            if(newAccount){
+                //create
+                data = authService.createUserWithEmailAndPassword(
+                    email, password
+                )
+            }else{
+                data = authService.signInWithEmailAndPassword(
+                    email, password
+                )
+            }
+            console.log(data);
+        } catch (error) {
+            setError(error.message)
+        }
+    } ;
+    const toggleAccount = () => {
+        if (newAccount){
+            setNewAccount(false)
+        }else{
+            setNewAccount(true)
+        }
+    }
+    const onChange = (event) =>{
+        const {target: {name, value},
+        } = event;
+        if (name === "email") {
+            setEmail(value)
+        }else if (name === "password") {
+            setPassword(value)
+        }
+    }
+    
+    return (
+    <div>
+        <form onSubmit={onSubmit}>
+            <input  name="email" 
+                    type="text" 
+                    placeholder="Email" 
+                    required="required" 
+                    value={email}
+                    onChange={onChange} />
+            <input  name="password"
+                    type="password" 
+                    placeholder="Password" 
+                    required="required" 
+                    value={password}
+                    onChange={onChange} />
+            <input type="submit" value={newAccount ? "Create Account" : "Log-In"}/>
+            {error}
+        </form>
+    <div>
+        <button>Coninue with Google</button>
+        <button>Coninue with Github</button>
+    </div>
+    <span onClick={toggleAccount}>
+        {newAccount ? "Log-In" : "Create Account"}
+    </span>
+</div>)
+}
 
 export default Auth;
