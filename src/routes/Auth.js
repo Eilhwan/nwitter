@@ -54,7 +54,7 @@ const Auth = () => {
             provider = new firebaseInstance.auth.GoogleAuthProvider();
         }
         const data = await authService.signInWithPopup(provider);
-        console.log(data)
+    
     };
     
     return (
