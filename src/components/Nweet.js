@@ -1,4 +1,4 @@
-import { dbService } from 'fbase';
+import { dbService, storageService } from 'fbase';
 import React, { useState } from 'react';
 
 const Nweet = ({nweetObj, isOwner}) =>{
@@ -9,6 +9,7 @@ const Nweet = ({nweetObj, isOwner}) =>{
         const ok = window.confirm("Are you Sure to Delete This Nweet");
         if (ok) {
             await dbService.doc(`nweets/${nweetObj.id}`).delete();
+            await storageService.refFromURL(nweetObj.attachmentUrl).delete();
             alert("Selected Nweet is deleted");
         }
     }
@@ -46,6 +47,8 @@ const Nweet = ({nweetObj, isOwner}) =>{
                 </form>
                 <button onClick={toggleEditing}>Cancel</button>
             </>  :   <>
+                {nweetObj.attachmentUrl && 
+                <img src = {nweetObj.attachmentUrl} width="50px" height="50px"/>}
                 <h4>{nweetObj.text}</h4>
                 <h5>{new Date(nweetObj.createdDate).toString()}</h5>
                 <h5>{nweetObj.updatedDate ? new Date(nweetObj.updatedDate).toString() + "(수정됨)" : ""} </h5>

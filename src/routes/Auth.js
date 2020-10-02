@@ -28,12 +28,9 @@ const Auth = () => {
             setError(error.message)
         }
     } ;
+
     const toggleAccount = () => {
-        if (newAccount){
-            setNewAccount(false)
-        }else{
-            setNewAccount(true)
-        }
+        setNewAccount(prev => !prev)
     }
     const onChange = (event) =>{
         const {target: {name, value},
