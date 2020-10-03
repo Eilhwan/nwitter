@@ -30,6 +30,7 @@ function Home({userObj}) {
                 ...doc.data(),
             }));
             setNweets(nweetArray)
+            
         });
     }, [])
 
