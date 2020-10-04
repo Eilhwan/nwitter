@@ -1,5 +1,6 @@
 import { dbService, storageService } from 'fbase';
 import React, { useState } from 'react';
+import {Button} from '@material-ui/core';
 
 const Nweet = ({nweetObj, isOwner}) =>{
     const [editing, setEditing] = useState(false);
@@ -54,8 +55,8 @@ const Nweet = ({nweetObj, isOwner}) =>{
                 <h5>{nweetObj.updatedDate ? new Date(nweetObj.updatedDate).toString() + "(수정됨)" : ""} </h5>
                 {isOwner && (
                 <>  
-                    <button onClick={toggleEditing}>Edit</button>
-                    <button onClick={onDeleteClick}>Delete</button>
+                    <Button variant="contained" color="primary" onClick={toggleEditing}>Edit</Button>
+                    <Button variant="contained" color="primary" onClick={onDeleteClick}>Delete</Button>
                 
                 </>
                 )}</>

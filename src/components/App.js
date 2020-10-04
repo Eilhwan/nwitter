@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Router } from 'react-router-dom';
 import AppRouter from 'components/Router';
-import fbase, { authService } from "fbase"
-import { auth } from 'firebase';
+import fbase, { authService } from "fbase";
+import { Container } from '@material-ui/core';
+
 function App(){
     const [init, setInit] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,6 +34,7 @@ function App(){
     }, [])
     return (
     <>
+    <Container>
         {init ? (
         <AppRouter 
         refreshUser = {refreshUser} 
@@ -44,6 +45,7 @@ function App(){
         )}
         
         <footer>&copy;  Nwitter {new Date().getFullYear()}</footer>
+    </Container>
     </>
     );
 }

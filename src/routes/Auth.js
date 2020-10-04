@@ -1,3 +1,4 @@
+import AuthForm from 'components/AuthForm';
 import { authService, firebaseInstance } from 'fbase';
 import React, { useState } from 'react';
 
@@ -56,29 +57,12 @@ const Auth = () => {
     
     return (
     <div>
-        <form onSubmit={onSubmit}>
-            <input  name="email" 
-                    type="text" 
-                    placeholder="Email" 
-                    required="required" 
-                    value={email}
-                    onChange={onChange} />
-            <input  name="password"
-                    type="password" 
-                    placeholder="Password" 
-                    required="required" 
-                    value={password}
-                    onChange={onChange} />
-            <input type="submit" value={newAccount ? "Create Account" : "Log-In"}/>
-            {error}
-        </form>
+        <AuthForm />
     <div>
         <button name="google" onClick={onSocialClick}>Coninue with Google</button>
         <button name="github" onClick={onSocialClick}>Coninue with Github</button>
     </div>
-    <span onClick={toggleAccount}>
-        {newAccount ? "Log-In" : "Create Account"}
-    </span>
+    
 </div>)
 }
 

@@ -1,21 +1,23 @@
 import React from 'react';
-import link, { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {Grid} from '@material-ui/core';
+import { authService } from 'fbase';
 
 const Navigation = ({userObj}) => {
+    const onClickLogOut =  () => authService.signOut();
     return (
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/Home">Home</Link>
-                </li>
-                <li>
-                    <Link to="/Profile">{userObj.displayName}</Link>
-                </li>
-                <li>
-                    <Link to="/">Log-out</Link>
-                </li>
-            </ul>
-        </nav>
+    <>
+        <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        >
+            <Link to="/Home">Home</Link>
+            <Link to="/Profile">{userObj.displayName}</Link>
+            <span onClick={onClickLogOut}>Log-out</span>
+        </Grid>
+    </>
     )
 }
 
